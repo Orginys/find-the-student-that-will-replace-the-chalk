@@ -1,0 +1,23 @@
+class Solution {
+    public int chalkReplacer(int[] chalk, int k) {
+        // Step 1: Calculate the total amount of chalk needed for one complete round
+        long totalChalk = 0; // Use long to avoid integer overflow
+        for (int c : chalk) {
+            totalChalk += c;
+        }
+
+        // Step 2: Find the remaining chalk after completing full rounds
+        k %= totalChalk;
+
+        // Step 3: Find the student who will run out of chalk
+        for (int i = 0; i < chalk.length; i++) {
+            if (k < chalk[i]) {
+                return i; // This student cannot complete the problem and needs to replace chalk
+            }
+            k -= chalk[i]; // Deduct the amount of chalk used by the current student
+        }
+
+        // This line will never be reached because one student will always run out of chalk
+        return -1;
+    }
+}
